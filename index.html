@@ -2,514 +2,334 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b203b">
-  <title>مرصد الاختبارات القصيرة | أبو الدرداء</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --navy: #0b203b;
-      --deep: #08192e;
-      --teal: #0f9e9c;
-      --gold: #e6b65a;
-      --paper: #f3f7fb;
-      --ink: #17314c;
-      --muted: #657b92;
-      --line: #e1eaf2;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Tajawal, Arial, sans-serif;
-      background: var(--paper);
-      color: var(--ink);
-    }
-
-    button, input, select { font: inherit; }
-    button { cursor: pointer; }
-
-    .wrap {
-      width: min(1200px, calc(100% - 32px));
-      margin: auto;
-    }
-
-    .hero {
-      background:
-        radial-gradient(ellipse at 15% 15%, #165c6e 0, transparent 44%),
-        linear-gradient(115deg, #0a203a, #0c3150 65%, #0b4554);
-      color: white;
-      padding: 22px 0 50px;
-    }
-
-    .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-    }
-
-    .brand img {
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
-      background: white;
-      border-radius: 15px;
-      padding: 5px;
-    }
-
-    .brand strong {
-      display: block;
-      font-size: 19px;
-    }
-
-    .brand small {
-      display: block;
-      color: #b5d3e0;
-      font-size: 13px;
-      margin-top: 5px;
-    }
-
-    .navlink {
-      color: #dff7f6;
-      text-decoration: none;
-      border: 1px solid #ffffff38;
-      border-radius: 12px;
-      padding: 11px 15px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 26px;
-      align-items: center;
-      margin-top: 30px;
-    }
-
-    .eyebrow {
-      color: #8ce1d8;
-      font-weight: 800;
-    }
-
-    h1 {
-      font-size: clamp(29px, 5vw, 49px);
-      font-weight: 900;
-      margin: 12px 0;
-    }
-
-    .subtitle {
-      color: #c8dce8;
-      font-size: 16px;
-      line-height: 1.9;
-    }
-
-    .countdown {
-      background: #ffffff10;
-      border: 1px solid #ffffff30;
-      border-radius: 23px;
-      padding: 23px;
-      backdrop-filter: blur(8px);
-    }
-
-    .countdown .tag {
-      color: #d9e6ef;
-      font-size: 13px;
-    }
-
-    .countdown h2 {
-      font-size: 23px;
-      margin: 12px 0;
-    }
-
-    .countdown .date {
-      color: #b9d5df;
-      line-height: 1.8;
-    }
-
-    .digits {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-top: 18px;
-    }
-
-    .digit {
-      background: #ffffff14;
-      border-radius: 13px;
-      text-align: center;
-      padding: 13px 4px;
-    }
-
-    .digit b {
-      display: block;
-      font-size: clamp(20px, 3vw, 35px);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .digit span {
-      font-size: 12px;
-      color: #bcd3df;
-    }
-
-    .note {
-      color: #b8d1dc;
-      font-size: 12px;
-      line-height: 1.8;
-      margin-bottom: 0;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-top: -24px;
-      position: relative;
-    }
-
-    .stat, .panel {
-      background: white;
-      border: 1px solid var(--line);
-      box-shadow: 0 10px 35px #183b5710;
-      border-radius: 19px;
-    }
-
-    .stat { padding: 20px; }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 31px;
-      margin: 8px 0;
-      color: #102c48;
-    }
-
-    .stat em {
-      display: block;
-      font-style: normal;
-      color: var(--teal);
-      font-size: 12px;
-    }
-
-    .main { padding: 28px 0 60px; }
-
-    .panel {
-      padding: 24px;
-      margin-bottom: 20px;
-    }
-
-    .sectionhead {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-
-    .sectionhead h2 {
-      font-size: 22px;
-      margin: 0;
-    }
-
-    .sectionhead p {
-      margin: 7px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .filters {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .filters select, .filters input {
-      background: #f7fafc;
-      border: 1px solid #dce7ee;
-      border-radius: 11px;
-      padding: 12px;
-      min-height: 45px;
-      color: var(--ink);
-    }
-
-    .filters input { min-width: 150px; }
-
-    .action, .mygrade {
-      border: 0;
-      border-radius: 11px;
-      padding: 12px 15px;
-      font-weight: 800;
-    }
-
-    .action {
-      background: #e7f5f4;
-      color: #087b79;
-    }
-
-    .mygrade {
-      background: #0e817f;
-      color: white;
-    }
-
-    .mygrade.saved {
-      background: #e7f5f4;
-      color: #087b79;
-    }
-
-    .personal-note {
-      color: #71879a;
-      font-size: 12px;
-    }
-
-    .days {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 18px;
-    }
-
-    .day {
-      border: 1px solid #dce8ee;
-      background: white;
-      border-radius: 14px;
-      padding: 12px;
-      min-width: 100px;
-      color: #2e536b;
-      text-align: center;
-    }
-
-    .day b {
-      display: block;
-      font-size: 17px;
-      margin-top: 5px;
-    }
-
-    .day small { color: var(--muted); }
-
-    .day.active {
-      background: #0e817f;
-      border-color: #0e817f;
-      color: white;
-    }
-
-    .day.active small { color: #d1f4f0; }
-
-    .tomorrow {
-      background: linear-gradient(120deg, #fffaf0, #f0fbf9);
-      border: 1px solid #e5e9dd;
-    }
-
-    .tomorrow-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 11px;
-    }
-
-    .tomorrow-item {
-      background: white;
-      border: 1px solid #dcebe8;
-      border-radius: 13px;
-      padding: 15px;
-    }
-
-    .tomorrow-item strong {
-      display: block;
-      color: #0c696a;
-      font-size: 19px;
-      margin: 9px 0;
-    }
-
-    .tomorrow-item small {
-      color: #688093;
-    }
-
-    .tablewrap { overflow-x: auto; }
-
-    table {
-      width: 100%;
-      min-width: 600px;
-      border-collapse: collapse;
-      text-align: right;
-    }
-
-    th {
-      background: #f4f8fb;
-      color: #5b7389;
-      padding: 15px;
-      font-size: 13px;
-    }
-
-    td {
-      padding: 15px;
-      border-bottom: 1px solid #edf1f5;
-    }
-
-    tbody tr:hover { background: #f9fcfd; }
-
-    .pill {
-      display: inline-block;
-      padding: 7px 12px;
-      border-radius: 30px;
-      font-size: 12px;
-      font-weight: 800;
-      background: #edf6fa;
-      color: #216781;
-    }
-
-    .pill.past {
-      background: #edf1f4;
-      color: #718394;
-    }
-
-    .pill.today {
-      background: #e5f8f2;
-      color: #128260;
-    }
-
-    .pill.soon {
-      background: #fff4dc;
-      color: #9b6c16;
-    }
-
-    .empty {
-      text-align: center;
-      padding: 35px;
-      color: var(--muted);
-    }
-
-    .footer {
-      text-align: center;
-      padding: 20px;
-      color: #768a9d;
-      font-size: 13px;
-      line-height: 1.8;
-    }
-
-    @media (max-width: 850px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .stats { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 500px) {
-      .panel { padding: 16px; }
-      .stat { padding: 15px; }
-      .stats { gap: 9px; }
-      .brand img { width: 49px; height: 49px; }
-      .brand strong { font-size: 15px; }
-      .filters { width: 100%; }
-      .filters > * { flex: 1; }
-      .day { min-width: 85px; }
-      .digits { gap: 5px; }
-    }
-
-    @media print {
-      .hero {
-        background: white;
-        color: black;
-        padding: 10px 0;
-      }
-      .countdown, .filters, .days,
-      .navlink, .tomorrow, .personal-note {
-        display: none !important;
-      }
-      .stats { margin-top: 10px; }
-      .stat, .panel { box-shadow: none; }
-      body { background: white; }
-      table { min-width: 0; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b203b">
+<title>مرصد الاختبارات القصيرة | أبو الدرداء</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --navy:#0b203b;
+  --deep:#08192e;
+  --teal:#0f9e9c;
+  --gold:#e6b65a;
+  --paper:#f3f7fb;
+  --ink:#17314c;
+  --muted:#657b92;
+  --line:#e1eaf2;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Tajawal,Arial,sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.wrap{width:min(1200px,calc(100% - 32px));margin:auto}
+.hero{
+  background:
+    radial-gradient(ellipse at 15% 15%,#165c6e 0,transparent 44%),
+    linear-gradient(115deg,#0a203a,#0c3150 65%,#0b4554);
+  color:white;
+  padding:22px 0 50px;
+}
+.top,.brand,.sectionhead,.filters{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:15px;
+}
+.top,.sectionhead{justify-content:space-between}
+.brand{gap:13px}
+.brand img{
+  width:60px;height:60px;
+  object-fit:contain;
+  background:white;
+  border-radius:15px;
+  padding:5px;
+}
+.brand strong{display:block;font-size:19px}
+.brand small{
+  display:block;
+  color:#b5d3e0;
+  font-size:13px;
+  margin-top:5px;
+}
+.navlink{
+  color:#dff7f6;
+  text-decoration:none;
+  border:1px solid #ffffff38;
+  border-radius:12px;
+  padding:11px 15px;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:26px;
+  align-items:center;
+  margin-top:30px;
+}
+.eyebrow{color:#8ce1d8;font-weight:800}
+h1{
+  font-size:clamp(29px,5vw,49px);
+  font-weight:900;
+  margin:12px 0;
+}
+.subtitle{
+  color:#c8dce8;
+  font-size:16px;
+  line-height:1.9;
+}
+.countdown{
+  background:#ffffff10;
+  border:1px solid #ffffff30;
+  border-radius:23px;
+  padding:23px;
+  backdrop-filter:blur(8px);
+}
+.countdown .tag{color:#d9e6ef;font-size:13px}
+.countdown h2{font-size:23px;margin:12px 0}
+.countdown .date{color:#b9d5df;line-height:1.8}
+.digits{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin-top:18px;
+}
+.digit{
+  background:#ffffff14;
+  border-radius:13px;
+  text-align:center;
+  padding:13px 4px;
+}
+.digit b{
+  display:block;
+  font-size:clamp(20px,3vw,35px);
+  font-variant-numeric:tabular-nums;
+}
+.digit span{font-size:12px;color:#bcd3df}
+.note{
+  color:#b8d1dc;
+  font-size:12px;
+  line-height:1.8;
+  margin-bottom:0;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-top:-24px;
+  position:relative;
+}
+.stat,.panel{
+  background:white;
+  border:1px solid var(--line);
+  box-shadow:0 10px 35px #183b5710;
+  border-radius:19px;
+}
+.stat{padding:20px}
+.stat span{color:var(--muted);font-size:13px}
+.stat strong{
+  display:block;
+  font-size:31px;
+  margin:8px 0;
+  color:#102c48;
+}
+.stat em{
+  display:block;
+  font-style:normal;
+  color:var(--teal);
+  font-size:12px;
+}
+.main{padding:28px 0 60px}
+.panel{padding:24px;margin-bottom:20px}
+.sectionhead{margin-bottom:20px}
+.sectionhead h2{font-size:22px;margin:0}
+.sectionhead p{
+  margin:7px 0 0;
+  color:var(--muted);
+  font-size:14px;
+}
+.filters{gap:10px}
+.filters select,.filters input{
+  background:#f7fafc;
+  border:1px solid #dce7ee;
+  border-radius:11px;
+  padding:12px;
+  min-height:45px;
+  color:var(--ink);
+}
+.filters input{min-width:150px}
+.action,.mygrade{
+  border:0;
+  border-radius:11px;
+  padding:12px 15px;
+  font-weight:800;
+}
+.action{background:#e7f5f4;color:#087b79}
+.mygrade{background:#0e817f;color:white}
+.mygrade.saved{background:#e7f5f4;color:#087b79}
+.personal-note{color:#71879a;font-size:12px}
+.days{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:18px;
+}
+.day{
+  border:1px solid #dce8ee;
+  background:white;
+  border-radius:14px;
+  padding:12px;
+  min-width:100px;
+  color:#2e536b;
+  text-align:center;
+}
+.day b{display:block;font-size:17px;margin-top:5px}
+.day small{color:var(--muted)}
+.day.active{
+  background:#0e817f;
+  border-color:#0e817f;
+  color:white;
+}
+.day.active small{color:#d1f4f0}
+.tomorrow{
+  background:linear-gradient(120deg,#fffaf0,#f0fbf9);
+  border:1px solid #e5e9dd;
+}
+.tomorrow-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:11px;
+}
+.tomorrow-item{
+  background:white;
+  border:1px solid #dcebe8;
+  border-radius:13px;
+  padding:15px;
+}
+.tomorrow-item strong{
+  display:block;
+  color:#0c696a;
+  font-size:19px;
+  margin:9px 0;
+}
+.tomorrow-item small{color:#688093}
+.tablewrap{overflow-x:auto}
+table{
+  width:100%;
+  min-width:600px;
+  border-collapse:collapse;
+  text-align:right;
+}
+th{
+  background:#f4f8fb;
+  color:#5b7389;
+  padding:15px;
+  font-size:13px;
+}
+td{padding:15px;border-bottom:1px solid #edf1f5}
+tbody tr:hover{background:#f9fcfd}
+.pill{
+  display:inline-block;
+  padding:7px 12px;
+  border-radius:30px;
+  font-size:12px;
+  font-weight:800;
+  background:#edf6fa;
+  color:#216781;
+}
+.pill.past{background:#edf1f4;color:#718394}
+.pill.today{background:#e5f8f2;color:#128260}
+.pill.soon{background:#fff4dc;color:#9b6c16}
+.empty{
+  text-align:center;
+  padding:35px;
+  color:var(--muted);
+}
+.footer{
+  text-align:center;
+  padding:20px;
+  color:#768a9d;
+  font-size:13px;
+  line-height:1.8;
+}
+@media(max-width:850px){
+  .hero-grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:500px){
+  .panel{padding:16px}
+  .stat{padding:15px}
+  .stats{gap:9px}
+  .brand img{width:49px;height:49px}
+  .brand strong{font-size:15px}
+  .filters{width:100%}
+  .filters>*{flex:1}
+  .day{min-width:85px}
+  .digits{gap:5px}
+}
+@media print{
+  .hero{background:white;color:black;padding:10px 0}
+  .countdown,.filters,.days,.navlink,.tomorrow,.personal-note{
+    display:none!important;
+  }
+  .stats{margin-top:10px}
+  .stat,.panel{box-shadow:none}
+  body{background:white}
+  table{min-width:0}
+}
+</style>
 </head>
 
 <body>
 
 <header class="hero">
   <div class="wrap">
-
     <div class="top">
       <div class="brand">
-        <img
-          src="https://c.top4top.io/p_3906f6odb1.jpg"
-          alt="شعار مدرسة أبو الدرداء"
-        >
+        <img src="https://c.top4top.io/p_3906f6odb1.jpg"
+             alt="شعار مدرسة أبو الدرداء">
         <div>
           <strong>مدرسة أبو الدرداء للبنين (5–12)</strong>
-          <small>
-            وزارة التعليم · محافظة الظاهرة · 2026 / 2027م
-          </small>
+          <small>وزارة التعليم · محافظة الظاهرة · 2026 / 2027م</small>
         </div>
       </div>
-
-      <a class="navlink"
-         href="https://sultanalwaeli.github.io/7237/">
+      <a class="navlink" href="https://sultanalwaeli.github.io/7237/">
         ← العودة إلى المركز الرقمي
       </a>
     </div>
 
     <div class="hero-grid">
-
       <div>
         <div class="eyebrow">✦ متابعة تعليمية ذكية</div>
         <h1>مرصد الاختبارات القصيرة</h1>
         <p class="subtitle">
           جدول الاختبار القصير الأول بين يديك.
-          تابع مواعيد المواد لكل صف، واستعرض
-          الاختبارات القادمة، واستعد لاختبارك
-          التالي بثقة وتنظيم.
+          تابع مواعيد المواد لكل صف، واستعرض الاختبارات القادمة،
+          واستعد لاختبارك التالي بثقة وتنظيم.
         </p>
       </div>
 
       <section class="countdown" aria-live="polite">
-        <span class="tag" id="countLabel">
-          الاختبار القادم
-        </span>
-
+        <span class="tag" id="countLabel">الاختبار القادم</span>
         <h2 id="nextName">جارٍ تحديد الاختبار القادم...</h2>
-
         <div class="date" id="nextDate"></div>
 
         <div class="digits">
-          <div class="digit">
-            <b id="days">00</b>
-            <span>يوم</span>
-          </div>
-
-          <div class="digit">
-            <b id="hours">00</b>
-            <span>ساعة</span>
-          </div>
-
-          <div class="digit">
-            <b id="minutes">00</b>
-            <span>دقيقة</span>
-          </div>
-
-          <div class="digit">
-            <b id="seconds">00</b>
-            <span>ثانية</span>
-          </div>
+          <div class="digit"><b id="days">00</b><span>يوم</span></div>
+          <div class="digit"><b id="hours">00</b><span>ساعة</span></div>
+          <div class="digit"><b id="minutes">00</b><span>دقيقة</span></div>
+          <div class="digit"><b id="seconds">00</b><span>ثانية</span></div>
         </div>
-
         <p class="note">
-          يبدأ احتساب جميع الاختبارات عند
-          الساعة 8:00 صباحًا بتوقيت سلطنة عُمان.
+          يبدأ احتساب جميع الاختبارات عند الساعة
+          8:00 صباحًا بتوقيت سلطنة عُمان.
         </p>
       </section>
-
     </div>
   </div>
 </header>
@@ -517,91 +337,66 @@
 <main class="main wrap">
 
   <section class="stats">
-
     <div class="stat">
       <span>الصفوف المشمولة</span>
       <strong>8</strong>
       <em>من الخامس إلى الثاني عشر</em>
     </div>
-
     <div class="stat">
       <span>إجمالي الاختبارات</span>
-      <strong id="totalCount">57</strong>
+      <strong id="totalCount">0</strong>
       <em>وفق الجدول المدرسي</em>
     </div>
-
     <div class="stat">
       <span>اختبارات اليوم</span>
       <strong id="todayCount">0</strong>
       <em id="todayDate"></em>
     </div>
-
     <div class="stat">
       <span>الاختبارات القادمة</span>
       <strong id="futureCount">0</strong>
       <em>حتى نهاية الجدول</em>
     </div>
-
   </section>
 
   <section class="panel">
-
     <div class="sectionhead">
       <div>
         <h2>استعرض جدول صفك</h2>
-        <p>
-          اختر الصف الدراسي ليظهر عداده الزمني
-          وجدول اختباراته.
-        </p>
+        <p>اختر الصف الدراسي ليظهر عداده الزمني وجدول اختباراته.</p>
       </div>
 
       <div class="filters">
-
         <select id="grade">
           <option value="all">جميع الصفوف</option>
         </select>
-
         <button id="myGrade" class="mygrade" type="button">
           ☆ احفظ جدولي
         </button>
-
-        <input
-          id="search"
-          type="search"
-          placeholder="ابحث عن مادة..."
-          aria-label="ابحث عن مادة"
-        >
-
-        <button class="action" onclick="window.print()">
-          ⎙ طباعة
-        </button>
-
+        <input id="search" type="search"
+               placeholder="ابحث عن مادة..."
+               aria-label="ابحث عن مادة">
+        <button class="action" onclick="window.print()">⎙ طباعة</button>
       </div>
     </div>
 
     <p class="personal-note" id="savedHint">
       اختر صفك ثم اضغط «احفظ جدولي».
     </p>
-
     <div class="days" id="daysStrip"></div>
-
   </section>
 
   <section class="panel tomorrow">
-
     <div class="sectionhead">
       <div>
         <h2>✦ استعد لاختبارات الغد</h2>
         <p id="tomorrowDate"></p>
       </div>
     </div>
-
     <div class="tomorrow-grid" id="tomorrowList"></div>
-
   </section>
 
   <section class="panel">
-
     <div class="sectionhead">
       <div>
         <h2 id="tableTitle">الاختبارات المجدولة</h2>
@@ -623,596 +418,493 @@
         <tbody id="tbody"></tbody>
       </table>
     </div>
-
   </section>
-
 </main>
 
 <footer class="footer">
-  مدرسة أبو الدرداء للبنين (5–12)
-  <br>
-  مرصد الاختبار القصير الأول · العام الدراسي 2026/2027م
-  <br>
+  مدرسة أبو الدرداء للبنين (5–12)<br>
+  مرصد الاختبار القصير الأول · العام الدراسي 2026/2027م<br>
   الحالات الزمنية آلية ولا تُعد إثباتًا لتنفيذ الاختبار.
 </footer>
 
 <script>
 "use strict";
 
-// =====================================================
-// بيانات الاختبارات القصيرة
-// جميع الاختبارات تبدأ الساعة 8:00 صباحًا
-// =====================================================
+/*
+  بيانات الاختبار القصير الأول
+  الإصدار المحدّث: 14 أكتوبر 2026
+  تعديلات الصفوف التاسع والحادي عشر والثاني عشر
+*/
 
 const schedule = {
   5: [
-    ["العلوم", "2026-10-13"],
-    ["الدراسات", "2026-10-14"],
-    ["الرياضيات", "2026-10-15"],
-    ["اللغة العربية", "2026-10-18"],
-    ["التربية الإسلامية", "2026-10-25"]
+    ["العلوم","2026-10-13"],
+    ["الدراسات","2026-10-14"],
+    ["الرياضيات","2026-10-15"],
+    ["اللغة العربية","2026-10-18"],
+    ["التربية الإسلامية","2026-10-25"]
   ],
 
   6: [
-    ["الرياضيات", "2026-10-13"],
-    ["اللغة العربية", "2026-10-14"],
-    ["اللغة الإنجليزية", "2026-10-15"],
-    ["الدراسات الاجتماعية", "2026-10-18"],
-    ["العلوم", "2026-10-20"],
-    ["التربية الإسلامية", "2026-10-25"]
+    ["الرياضيات","2026-10-13"],
+    ["اللغة العربية","2026-10-14"],
+    ["اللغة الإنجليزية","2026-10-15"],
+    ["الدراسات الاجتماعية","2026-10-18"],
+    ["العلوم","2026-10-20"],
+    ["التربية الإسلامية","2026-10-25"]
   ],
 
   7: [
-    ["الدراسات", "2026-10-14"],
-    ["اللغة الإنجليزية", "2026-10-15"],
-    ["الرياضيات", "2026-10-18"],
-    ["العلوم", "2026-10-20"],
-    ["اللغة العربية", "2026-10-21"],
-    ["التربية الإسلامية", "2026-10-22"]
+    ["الدراسات","2026-10-14"],
+    ["اللغة الإنجليزية","2026-10-15"],
+    ["الرياضيات","2026-10-18"],
+    ["العلوم","2026-10-20"],
+    ["اللغة العربية","2026-10-21"],
+    ["التربية الإسلامية","2026-10-22"]
   ],
 
   8: [
-    ["الدراسات", "2026-10-12"],
-    ["العلوم", "2026-10-13"],
-    ["الرياضيات", "2026-10-14"],
-    ["اللغة العربية", "2026-10-15"],
-    ["اللغة الإنجليزية", "2026-10-18"],
-    ["التربية الإسلامية", "2026-10-19"]
+    ["الدراسات","2026-10-12"],
+    ["العلوم","2026-10-13"],
+    ["الرياضيات","2026-10-14"],
+    ["اللغة العربية","2026-10-15"],
+    ["اللغة الإنجليزية","2026-10-18"],
+    ["التربية الإسلامية","2026-10-19"]
   ],
 
   9: [
-    ["الأحياء", "2026-10-13"],
-    ["الفيزياء", "2026-10-14"],
-    ["الرياضيات", "2026-10-15"],
-    ["اللغة العربية", "2026-10-18"],
-    ["الدراسات الاجتماعية", "2026-10-19"],
-    ["التربية الإسلامية", "2026-10-20"],
-    ["الكيمياء", "2026-10-21"],
-    ["اللغة الإنجليزية", "2026-10-22"]
+    ["الأحياء","2026-10-13"],
+    ["اللغة الإنجليزية","2026-10-15"],
+    ["الرياضيات","2026-10-18"],
+    ["الدراسات الاجتماعية","2026-10-19"],
+    ["التربية الإسلامية","2026-10-20"],
+    ["الكيمياء","2026-10-21"],
+    ["اللغة العربية","2026-10-22"],
+    ["الفيزياء","2026-10-25"]
   ],
 
   10: [
-    ["الأحياء", "2026-10-13"],
-    ["الفيزياء", "2026-10-14"],
-    ["الرياضيات", "2026-10-15"],
-    ["اللغة العربية", "2026-10-18"],
-    ["الدراسات الاجتماعية", "2026-10-19"],
-    ["الكيمياء", "2026-10-20"],
-    ["اللغة الإنجليزية", "2026-10-21"],
-    ["التربية الإسلامية", "2026-10-22"]
+    ["الأحياء","2026-10-13"],
+    ["الفيزياء","2026-10-14"],
+    ["الرياضيات","2026-10-15"],
+    ["اللغة العربية","2026-10-18"],
+    ["الدراسات الاجتماعية","2026-10-19"],
+    ["الكيمياء","2026-10-20"],
+    ["اللغة الإنجليزية","2026-10-21"],
+    ["التربية الإسلامية","2026-10-22"]
   ],
 
   11: [
-    ["الدراسات الاجتماعية", "2026-10-12"],
-    ["التربية الإسلامية", "2026-10-13"],
-    ["العلوم والتقانة", "2026-10-14"],
-    ["الفيزياء", "2026-10-15"],
-    ["الرياضيات المتقدمة", "2026-10-18"],
-    ["الجغرافيا", "2026-10-20"],
-    ["اللغة العربية", "2026-10-22"],
-    ["الأحياء", "2026-10-21"],
-    ["الكيمياء", "2026-10-25"],
-    ["اللغة الإنجليزية", "2026-10-26"]
+    ["الدراسات الاجتماعية","2026-10-12"],
+    ["العلوم والتقانة","2026-10-14"],
+    ["الفيزياء","2026-10-15"],
+    ["الرياضيات المتقدمة","2026-10-18"],
+    ["الجغرافيا","2026-10-20"],
+    ["الأحياء","2026-10-21"],
+    ["اللغة العربية","2026-10-22"],
+    ["الكيمياء","2026-10-25"],
+    ["اللغة الإنجليزية","2026-10-26"],
+    ["التربية الإسلامية","2026-10-27"]
   ],
 
   12: [
-    ["التربية الإسلامية", "2026-10-14"],
-    ["العلوم والبيئة", "2026-10-15"],
-    ["الرياضيات الأساسية", "2026-10-18"],
-    ["الدراسات الاجتماعية", "2026-10-19"],
-    ["الأحياء", "2026-10-20"],
-    ["الكيمياء", "2026-10-21"],
-    ["الجغرافيا", "2026-10-22"],
-    ["الفيزياء", "2026-10-25"]
+    ["التربية الإسلامية","2026-10-14"],
+    ["العلوم والبيئة","2026-10-15"],
+    ["الرياضيات الأساسية","2026-10-18"],
+    ["الفيزياء","2026-10-18"],
+    ["الدراسات الاجتماعية","2026-10-19"],
+    ["الأحياء","2026-10-20"],
+    ["الكيمياء","2026-10-21"],
+    ["الجغرافيا","2026-10-22"]
   ]
 };
 
 const gradeNames = {
-  5: "الخامس",
-  6: "السادس",
-  7: "السابع",
-  8: "الثامن",
-  9: "التاسع",
-  10: "العاشر",
-  11: "الحادي عشر",
-  12: "الثاني عشر"
+  5:"الخامس",
+  6:"السادس",
+  7:"السابع",
+  8:"الثامن",
+  9:"التاسع",
+  10:"العاشر",
+  11:"الحادي عشر",
+  12:"الثاني عشر"
 };
 
 const exams = [];
 
-for (const [gradeNumber, subjects] of Object.entries(schedule)) {
-  for (const [subject, date] of subjects) {
+for(const [gradeNumber,subjects] of Object.entries(schedule)){
+  for(const [subject,date] of subjects){
     exams.push({
-      grade: Number(gradeNumber),
+      grade:Number(gradeNumber),
       subject,
       date
     });
   }
 }
 
-exams.sort((a, b) =>
+exams.sort((a,b)=>
   a.date.localeCompare(b.date) ||
-  a.grade - b.grade
+  a.grade-b.grade
 );
 
-// =====================================================
-// إعدادات التوقيت العُماني
-// =====================================================
+const TIMEZONE="Asia/Muscat";
+const STORAGE_KEY="abu_dardaa_exam_grade_v1";
 
-const TIMEZONE = "Asia/Muscat";
-const EXAM_HOUR = 8;
-const STORAGE_KEY = "abu_dardaa_exam_grade_v1";
-
-const dateFormatter = new Intl.DateTimeFormat("ar-OM", {
-  timeZone: TIMEZONE,
-  weekday: "long",
-  day: "numeric",
-  month: "long",
-  year: "numeric"
+const dateFormatter=new Intl.DateTimeFormat("ar-OM",{
+  timeZone:TIMEZONE,
+  weekday:"long",
+  day:"numeric",
+  month:"long",
+  year:"numeric"
 });
 
-function getOmanDateKey(date = new Date()) {
-  const parts = new Intl.DateTimeFormat("en-GB", {
-    timeZone: TIMEZONE,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit"
+function getOmanDateKey(date=new Date()){
+  const parts=new Intl.DateTimeFormat("en-GB",{
+    timeZone:TIMEZONE,
+    year:"numeric",
+    month:"2-digit",
+    day:"2-digit"
   }).formatToParts(date);
 
-  const value = type =>
-    parts.find(part => part.type === type).value;
+  const value=type=>
+    parts.find(part=>part.type===type).value;
 
-  return (
-    value("year") + "-" +
-    value("month") + "-" +
-    value("day")
-  );
+  return value("year")+"-"+
+         value("month")+"-"+
+         value("day");
 }
 
-function dateFromKey(key) {
-  return new Date(key + "T12:00:00+04:00");
+function dateFromKey(key){
+  return new Date(key+"T12:00:00+04:00");
 }
 
-function examTimestamp(key) {
-  return new Date(
-    key + "T08:00:00+04:00"
-  ).getTime();
+function examTimestamp(key){
+  return new Date(key+"T08:00:00+04:00").getTime();
 }
 
-function addDays(key, amount) {
-  const date = new Date(key + "T12:00:00Z");
-  date.setUTCDate(date.getUTCDate() + amount);
-  return date.toISOString().slice(0, 10);
+function addDays(key,amount){
+  const date=new Date(key+"T12:00:00Z");
+  date.setUTCDate(date.getUTCDate()+amount);
+  return date.toISOString().slice(0,10);
 }
 
-function formatDate(key) {
+function formatDate(key){
   return dateFormatter.format(dateFromKey(key));
 }
 
-// =====================================================
-// عناصر الصفحة وحفظ الصف
-// =====================================================
+const gradeSelect=document.getElementById("grade");
+const searchInput=document.getElementById("search");
+const saveButton=document.getElementById("myGrade");
 
-const gradeSelect = document.getElementById("grade");
-const searchInput = document.getElementById("search");
-const saveButton = document.getElementById("myGrade");
+let selectedDay="all";
+let savedGrade=null;
+let lastTodayKey=getOmanDateKey();
 
-let selectedDay = "all";
-let savedGrade = null;
-let lastTodayKey = getOmanDateKey();
-
-for (let number = 5; number <= 12; number++) {
-  const option = document.createElement("option");
-  option.value = String(number);
-  option.textContent = "الصف " + gradeNames[number];
+for(let number=5;number<=12;number++){
+  const option=document.createElement("option");
+  option.value=String(number);
+  option.textContent="الصف "+gradeNames[number];
   gradeSelect.appendChild(option);
 }
 
-try {
-  const value = localStorage.getItem(STORAGE_KEY);
-
-  if (value && gradeNames[value]) {
-    savedGrade = value;
-    gradeSelect.value = value;
+try{
+  const value=localStorage.getItem(STORAGE_KEY);
+  if(value && gradeNames[value]){
+    savedGrade=value;
+    gradeSelect.value=value;
   }
-} catch (error) {
-  console.warn("تعذر قراءة الصف المحفوظ", error);
+}catch(error){
+  console.warn("تعذر قراءة الصف المحفوظ",error);
 }
 
-function selectedExams() {
-  return exams.filter(exam =>
-    gradeSelect.value === "all" ||
-    String(exam.grade) === gradeSelect.value
+function selectedExams(){
+  return exams.filter(exam=>
+    gradeSelect.value==="all" ||
+    String(exam.grade)===gradeSelect.value
   );
 }
 
-function visibleExams() {
-  const query = searchInput.value.trim();
-
-  return selectedExams().filter(exam =>
-    (selectedDay === "all" ||
-      exam.date === selectedDay) &&
+function visibleExams(){
+  const query=searchInput.value.trim();
+  return selectedExams().filter(exam=>
+    (selectedDay==="all" || exam.date===selectedDay) &&
     exam.subject.includes(query)
   );
 }
 
-function updateSaveButton() {
-  const isSaved =
-    savedGrade !== null &&
-    savedGrade === gradeSelect.value;
+function updateSaveButton(){
+  const isSaved=
+    savedGrade!==null &&
+    savedGrade===gradeSelect.value;
 
-  saveButton.classList.toggle("saved", isSaved);
+  saveButton.classList.toggle("saved",isSaved);
+  saveButton.textContent=isSaved
+    ?"★ جدولي محفوظ"
+    :"☆ احفظ جدولي";
 
-  saveButton.textContent = isSaved
-    ? "★ جدولي محفوظ"
-    : "☆ احفظ جدولي";
-
-  document.getElementById("savedHint").textContent =
-    isSaved
-      ? "تم حفظ الصف " +
-        gradeNames[savedGrade] +
-        " على هذا الجهاز، وسيظهر تلقائيًا عند عودتك."
-      : "اختر صفك ثم اضغط «احفظ جدولي» ليظهر تلقائيًا عند زيارتك القادمة.";
+  document.getElementById("savedHint").textContent=isSaved
+    ?"تم حفظ الصف "+gradeNames[savedGrade]+
+     " على هذا الجهاز، وسيظهر تلقائيًا عند عودتك."
+    :"اختر صفك ثم اضغط «احفظ جدولي» ليظهر تلقائيًا عند زيارتك القادمة.";
 }
 
-saveButton.addEventListener("click", () => {
-  if (gradeSelect.value === "all") {
+saveButton.addEventListener("click",()=>{
+  if(gradeSelect.value==="all"){
     alert("اختر صفك الدراسي أولًا.");
     return;
   }
 
-  try {
-    localStorage.setItem(
-      STORAGE_KEY,
-      gradeSelect.value
-    );
-
-    savedGrade = gradeSelect.value;
+  try{
+    localStorage.setItem(STORAGE_KEY,gradeSelect.value);
+    savedGrade=gradeSelect.value;
     updateSaveButton();
-
-  } catch (error) {
-    document.getElementById("savedHint").textContent =
+  }catch(error){
+    document.getElementById("savedHint").textContent=
       "تعذر حفظ الصف في هذا المتصفح.";
   }
 });
 
-// =====================================================
-// لوحة الإحصاءات
-// =====================================================
+function renderStats(){
+  const today=getOmanDateKey();
+  const now=Date.now();
 
-function renderStats() {
-  const today = getOmanDateKey();
-  const now = Date.now();
-
-  document.getElementById("totalCount").textContent =
+  document.getElementById("totalCount").textContent=
     exams.length;
 
-  document.getElementById("todayCount").textContent =
-    exams.filter(exam => exam.date === today).length;
+  document.getElementById("todayCount").textContent=
+    exams.filter(exam=>exam.date===today).length;
 
-  document.getElementById("futureCount").textContent =
-    exams.filter(exam =>
-      examTimestamp(exam.date) > now
+  document.getElementById("futureCount").textContent=
+    exams.filter(exam=>
+      examTimestamp(exam.date)>now
     ).length;
 
-  document.getElementById("todayDate").textContent =
+  document.getElementById("todayDate").textContent=
     formatDate(today);
 }
 
-// =====================================================
-// العداد التنازلي
-// =====================================================
+function updateCountdown(){
+  const now=Date.now();
+  const today=getOmanDateKey();
 
-function updateCountdown() {
-  const now = Date.now();
-  const today = getOmanDateKey();
-
-  const upcoming = selectedExams().filter(exam =>
-    examTimestamp(exam.date) > now
+  const upcoming=selectedExams().filter(exam=>
+    examTimestamp(exam.date)>now
   );
 
-  const label = document.getElementById("countLabel");
-  const name = document.getElementById("nextName");
-  const dateText = document.getElementById("nextDate");
+  const label=document.getElementById("countLabel");
+  const name=document.getElementById("nextName");
+  const dateText=document.getElementById("nextDate");
 
-  if (upcoming.length === 0) {
-    label.textContent = "اكتمل الجدول الزمني";
-    name.textContent = "لا توجد اختبارات قادمة";
-    dateText.textContent = "بحسب الجدول المعتمد";
+  if(upcoming.length===0){
+    label.textContent="اكتمل الجدول الزمني";
+    name.textContent="لا توجد اختبارات قادمة";
+    dateText.textContent="بحسب الجدول المعتمد";
 
-    for (const id of [
-      "days", "hours", "minutes", "seconds"
-    ]) {
-      document.getElementById(id).textContent = "00";
+    for(const id of ["days","hours","minutes","seconds"]){
+      document.getElementById(id).textContent="00";
     }
-
     return;
   }
 
-  const nextDate = upcoming[0].date;
-
-  const nextExams = upcoming.filter(exam =>
-    exam.date === nextDate
+  const nextDate=upcoming[0].date;
+  const nextExams=upcoming.filter(exam=>
+    exam.date===nextDate
   );
 
-  label.textContent =
-    nextDate === today
-      ? "اختبار اليوم · 8:00 صباحًا"
-      : "الاختبار القادم · 8:00 صباحًا";
+  label.textContent=nextDate===today
+    ?"اختبار اليوم · 8:00 صباحًا"
+    :"الاختبار القادم · 8:00 صباحًا";
 
-  if (nextExams.length === 1) {
-    const exam = nextExams[0];
+  if(nextExams.length===1){
+    const exam=nextExams[0];
 
-    name.textContent =
-      exam.subject +
-      (
-        gradeSelect.value === "all"
-          ? " · الصف " + gradeNames[exam.grade]
-          : ""
-      );
+    name.textContent=exam.subject+
+      (gradeSelect.value==="all"
+        ?" · الصف "+gradeNames[exam.grade]
+        :"");
 
-    dateText.textContent =
-      formatDate(nextDate) + " · 8:00 صباحًا";
+    dateText.textContent=
+      formatDate(nextDate)+" · 8:00 صباحًا";
+  }else{
+    name.textContent=
+      nextExams.length+" اختبارات في الموعد القادم";
 
-  } else {
-    name.textContent =
-      nextExams.length + " اختبارات في الموعد القادم";
-
-    dateText.textContent =
-      nextExams.map(exam =>
-        exam.subject +
-        " (الصف " + gradeNames[exam.grade] + ")"
-      ).join(" • ") +
-      " — " + formatDate(nextDate);
+    dateText.textContent=
+      nextExams.map(exam=>
+        exam.subject+
+        " (الصف "+gradeNames[exam.grade]+")"
+      ).join(" • ")+" — "+formatDate(nextDate);
   }
 
-  const remaining = Math.max(
-    0,
-    examTimestamp(nextDate) - now
-  );
+  const remaining=Math.max(0,examTimestamp(nextDate)-now);
 
-  const days = Math.floor(remaining / 86400000);
-  const hours = Math.floor(
-    (remaining % 86400000) / 3600000
-  );
-  const minutes = Math.floor(
-    (remaining % 3600000) / 60000
-  );
-  const seconds = Math.floor(
-    (remaining % 60000) / 1000
-  );
+  const days=Math.floor(remaining/86400000);
+  const hours=Math.floor((remaining%86400000)/3600000);
+  const minutes=Math.floor((remaining%3600000)/60000);
+  const seconds=Math.floor((remaining%60000)/1000);
 
-  const pad = number =>
-    String(number).padStart(2, "0");
+  const pad=n=>String(n).padStart(2,"0");
 
-  document.getElementById("days").textContent =
-    pad(days);
-
-  document.getElementById("hours").textContent =
-    pad(hours);
-
-  document.getElementById("minutes").textContent =
-    pad(minutes);
-
-  document.getElementById("seconds").textContent =
-    pad(seconds);
+  document.getElementById("days").textContent=pad(days);
+  document.getElementById("hours").textContent=pad(hours);
+  document.getElementById("minutes").textContent=pad(minutes);
+  document.getElementById("seconds").textContent=pad(seconds);
 }
 
-// =====================================================
-// اختبارات الغد
-// =====================================================
+function renderTomorrow(){
+  const tomorrow=addDays(getOmanDateKey(),1);
 
-function renderTomorrow() {
-  const tomorrow = addDays(
-    getOmanDateKey(),
-    1
+  const tomorrowExams=selectedExams().filter(exam=>
+    exam.date===tomorrow
   );
 
-  const tomorrowExams = selectedExams().filter(exam =>
-    exam.date === tomorrow
-  );
+  document.getElementById("tomorrowDate").textContent=
+    formatDate(tomorrow)+" · الساعة 8:00 صباحًا";
 
-  document.getElementById("tomorrowDate").textContent =
-    formatDate(tomorrow) +
-    " · الساعة 8:00 صباحًا";
-
-  const container = document.getElementById(
-    "tomorrowList"
-  );
-
+  const container=document.getElementById("tomorrowList");
   container.replaceChildren();
 
-  if (tomorrowExams.length === 0) {
-    const message = document.createElement("p");
-
-    message.textContent =
-      gradeSelect.value === "all"
-        ? "لا توجد اختبارات مجدولة غدًا."
-        : "لا يوجد اختبار مجدول غدًا لهذا الصف. استثمر وقتك في المراجعة والاستعداد.";
+  if(tomorrowExams.length===0){
+    const message=document.createElement("p");
+    message.textContent=gradeSelect.value==="all"
+      ?"لا توجد اختبارات مجدولة غدًا."
+      :"لا يوجد اختبار مجدول غدًا لهذا الصف. استثمر وقتك في المراجعة والاستعداد.";
 
     container.appendChild(message);
     return;
   }
 
-  for (const exam of tomorrowExams) {
-    const card = document.createElement("div");
-    card.className = "tomorrow-item";
+  for(const exam of tomorrowExams){
+    const card=document.createElement("div");
+    card.className="tomorrow-item";
 
-    const grade = document.createElement("small");
-    grade.textContent =
-      "الصف " + gradeNames[exam.grade];
+    const grade=document.createElement("small");
+    grade.textContent="الصف "+gradeNames[exam.grade];
 
-    const subject = document.createElement("strong");
-    subject.textContent = exam.subject;
+    const subject=document.createElement("strong");
+    subject.textContent=exam.subject;
 
-    const time = document.createElement("small");
-    time.textContent = "8:00 صباحًا";
+    const time=document.createElement("small");
+    time.textContent="8:00 صباحًا";
 
-    card.append(grade, subject, time);
+    card.append(grade,subject,time);
     container.appendChild(card);
   }
 }
 
-// =====================================================
-// شريط التواريخ
-// =====================================================
+function renderDays(){
+  const dates=[...new Set(
+    selectedExams().map(exam=>exam.date)
+  )];
 
-function renderDays() {
-  const dates = [
-    ...new Set(
-      selectedExams().map(exam => exam.date)
-    )
-  ];
-
-  const container = document.getElementById(
-    "daysStrip"
-  );
-
+  const container=document.getElementById("daysStrip");
   container.replaceChildren();
 
-  function addButton(value, heading, subheading) {
-    const button = document.createElement("button");
+  function addButton(value,heading,subheading){
+    const button=document.createElement("button");
+    button.type="button";
+    button.className="day"+
+      (selectedDay===value?" active":"");
 
-    button.type = "button";
-    button.className =
-      "day" +
-      (selectedDay === value ? " active" : "");
+    const small=document.createElement("small");
+    small.textContent=subheading;
 
-    const small = document.createElement("small");
-    small.textContent = subheading;
+    const strong=document.createElement("b");
+    strong.textContent=heading;
 
-    const strong = document.createElement("b");
-    strong.textContent = heading;
+    button.append(small,strong);
 
-    button.append(small, strong);
-
-    button.addEventListener("click", () => {
-      selectedDay = value;
+    button.addEventListener("click",()=>{
+      selectedDay=value;
       render();
     });
 
     container.appendChild(button);
   }
 
-  addButton("all", "الكل", "كل الأيام");
+  addButton("all","الكل","كل الأيام");
 
-  for (const date of dates) {
-    const formatted = new Intl.DateTimeFormat(
-      "ar-OM",
-      {
-        timeZone: TIMEZONE,
-        weekday: "short",
-        day: "numeric",
-        month: "short"
-      }
-    ).format(dateFromKey(date));
+  for(const date of dates){
+    const formatted=new Intl.DateTimeFormat("ar-OM",{
+      timeZone:TIMEZONE,
+      weekday:"short",
+      day:"numeric",
+      month:"short"
+    }).format(dateFromKey(date));
 
-    addButton(date, formatted, "موعد اختبار");
+    addButton(date,formatted,"موعد اختبار");
   }
 }
 
-// =====================================================
-// جدول الاختبارات
-// =====================================================
+function renderTable(){
+  const today=getOmanDateKey();
+  const rows=visibleExams();
 
-function renderTable() {
-  const today = getOmanDateKey();
-  const rows = visibleExams();
+  document.getElementById("tableTitle").textContent=
+    gradeSelect.value==="all"
+      ?"الاختبارات المجدولة"
+      :"جدول الصف "+gradeNames[gradeSelect.value];
 
-  document.getElementById("tableTitle").textContent =
-    gradeSelect.value === "all"
-      ? "الاختبارات المجدولة"
-      : "جدول الصف " +
-        gradeNames[gradeSelect.value];
+  document.getElementById("resultsText").textContent=
+    rows.length+" اختبارًا في العرض الحالي";
 
-  document.getElementById("resultsText").textContent =
-    rows.length + " اختبارًا في العرض الحالي";
-
-  const tbody = document.getElementById("tbody");
+  const tbody=document.getElementById("tbody");
   tbody.replaceChildren();
 
-  if (rows.length === 0) {
-    const tr = document.createElement("tr");
-    const td = document.createElement("td");
+  if(rows.length===0){
+    const tr=document.createElement("tr");
+    const td=document.createElement("td");
 
-    td.colSpan = 5;
-    td.className = "empty";
-    td.textContent =
-      "لا توجد اختبارات مطابقة للاختيار الحالي.";
+    td.colSpan=5;
+    td.className="empty";
+    td.textContent="لا توجد اختبارات مطابقة للاختيار الحالي.";
 
     tr.appendChild(td);
     tbody.appendChild(tr);
     return;
   }
 
-  for (const exam of rows) {
-    const tr = document.createElement("tr");
+  for(const exam of rows){
+    const tr=document.createElement("tr");
 
-    const status =
-      exam.date < today
-        ? "سابق"
-        : exam.date === today
-          ? "اليوم"
-          : "قادم";
+    const status=exam.date<today
+      ?"سابق"
+      :exam.date===today
+        ?"اليوم"
+        :"قادم";
 
-    const statusClass =
-      exam.date < today
-        ? "past"
-        : exam.date === today
-          ? "today"
-          : "soon";
+    const statusClass=exam.date<today
+      ?"past"
+      :exam.date===today
+        ?"today"
+        :"soon";
 
-    const values = [
-      "الصف " + gradeNames[exam.grade],
+    const values=[
+      "الصف "+gradeNames[exam.grade],
       exam.subject,
       formatDate(exam.date),
       "8:00 صباحًا"
     ];
 
-    for (const value of values) {
-      const td = document.createElement("td");
-      td.textContent = value;
+    for(const value of values){
+      const td=document.createElement("td");
+      td.textContent=value;
       tr.appendChild(td);
     }
 
-    const statusCell = document.createElement("td");
-    const badge = document.createElement("span");
+    const statusCell=document.createElement("td");
+    const badge=document.createElement("span");
 
-    badge.className = "pill " + statusClass;
-    badge.textContent = status;
+    badge.className="pill "+statusClass;
+    badge.textContent=status;
 
     statusCell.appendChild(badge);
     tr.appendChild(statusCell);
-
     tbody.appendChild(tr);
   }
 }
 
-// =====================================================
-// التحديث العام
-// =====================================================
-
-function render() {
+function render(){
   renderStats();
   renderTomorrow();
   renderDays();
@@ -1221,40 +913,39 @@ function render() {
   updateCountdown();
 }
 
-gradeSelect.addEventListener("change", () => {
-  selectedDay = "all";
+gradeSelect.addEventListener("change",()=>{
+  selectedDay="all";
   render();
 });
 
-searchInput.addEventListener("input", () => {
+searchInput.addEventListener("input",()=>{
   renderTable();
 });
 
-try {
+try{
   render();
 
-  setInterval(() => {
-    const today = getOmanDateKey();
+  setInterval(()=>{
+    const today=getOmanDateKey();
 
-    if (today !== lastTodayKey) {
-      lastTodayKey = today;
+    if(today!==lastTodayKey){
+      lastTodayKey=today;
       render();
-    } else {
+    }else{
       updateCountdown();
       renderStats();
     }
-  }, 1000);
+  },1000);
 
-} catch (error) {
-  document.getElementById("nextName").textContent =
+}catch(error){
+  document.getElementById("nextName").textContent=
     "تعذّر تشغيل العداد";
 
-  document.getElementById("nextDate").textContent =
+  document.getElementById("nextDate").textContent=
     "يرجى تحديث الصفحة";
 
   console.error(error);
 }
 </script>
-
 </body>
 </html>
